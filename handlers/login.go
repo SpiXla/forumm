@@ -5,7 +5,6 @@ import (
 	"forum/database"
 	"net/http"
 )
-var user string
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	err := LogTp.Execute(w, nil)

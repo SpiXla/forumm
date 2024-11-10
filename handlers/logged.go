@@ -4,9 +4,18 @@ import (
 	"net/http"
 )
 
+type Pagedata struct {
+    User     string
+    PostData []PostData
+}
+
 func Logged(w http.ResponseWriter, r *http.Request) {
-	err := LoggedTp.Execute(w, user)
-	if err != nil {
-		http.Error(w, "Error rendering template", http.StatusInternalServerError)
-	}
+    hh := Pagedata{
+        User:     user,
+        PostData: data,
+    }
+    err := LoggedTp.Execute(w, hh)
+    if err != nil {
+        http.Error(w, "Error rendering template", http.StatusInternalServerError)
+    }
 }

@@ -26,7 +26,7 @@ func RegisterInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := database.Insert(uname, email, password)
+	err := database.Insertuser(uname, email, password)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error registering user: %v", err), http.StatusInternalServerError)
 		return

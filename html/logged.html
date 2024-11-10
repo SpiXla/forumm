@@ -11,12 +11,21 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
             background-color: #007bff;
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
         .container {
             max-width: 600px;
@@ -25,9 +34,11 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
         }
         p {
             font-size: 18px;
+            margin-bottom: 20px;
         }
         button {
             background-color: #007bff;
@@ -43,16 +54,52 @@
         button:hover {
             background-color: #0056b3;
         }
+        .post {
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .post h3 {
+            color: #007bff;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .post p {
+            font-size: 1em;
+            color: #555;
+        }
+        .post i {
+            font-size: 0.9em;
+            color: #888;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Dashboard</h1>
+        <div class="button-container">
+            <a href="/post"><button>Post</button></a>
+            <a href="/"><button>Logout</button></a>
+        </div>
     </header>
     <div class="container">
-        <p>Welcome back  <b>{{.}}</b> to the forum! Feel free to post.</p>
-        <a href="/post"><button>Post</button></a>
-        <a href="/"><button>Logout</button></a>
+        <p>Welcome back <b>{{.User}}</b> to the forum! Feel free to post.</p>
+    
+        {{range .PostData}}
+            <div class="post">
+                <h3>Posted by {{.Username}}</h3>
+                <p>{{.Text}}</p>
+                <p>Category: {{.Category}}</p>
+                <hr>
+            </div>
+        {{end}}
     </div>
 </body>
 </html>
