@@ -8,6 +8,7 @@ var (
 	IndTp    *template.Template
 	LogTp    *template.Template
 	RegTp    *template.Template
+	PostTp   *template.Template
 	LoggedTp *template.Template
 )
 
@@ -29,6 +30,10 @@ func ParseFiles() error {
 		return err
 	}
 	LoggedTp, err = template.ParseFiles("html/logged.html")
+	if err != nil {
+		return err
+	}
+	PostTp, err = template.ParseFiles("html/post.html")
 	if err != nil {
 		return err
 	}

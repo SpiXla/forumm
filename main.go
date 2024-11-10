@@ -28,6 +28,8 @@ func main() {
 	http.HandleFunc("/login", handlers.Login)
 	http.HandleFunc("/logininfo", handlers.LoginInfo)
 	http.HandleFunc("/logged", handlers.Logged)
+	http.HandleFunc("/post", handlers.Post)
+	http.HandleFunc("/postinfo", handlers.PostInfo)
 
 	fmt.Println("Server started at http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
