@@ -30,7 +30,7 @@ func CheckPswd(email string) (string, error) {
 	return pswd, nil
 }
 
-func CheckUname(email string) (string) {
+func CheckUname(email string) string {
 	var uname string
 	query := `SELECT username FROM users WHERE email = ?`
 	err := Db.QueryRow(query, email).Scan(&uname)

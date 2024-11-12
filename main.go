@@ -2,26 +2,26 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
 	"forum/database"
 	"forum/handlers"
-	"net/http"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
+	
 	err := handlers.ParseFiles()
 	if err != nil {
-		fmt.Printf("Error loading templates: %v\n", err)
+		fmt.Println(err)
 		return
 	}
-	database.Db, err = database.CreateTable()
+	db, err := database.CreateTable()
 	if err != nil {
-		fmt.Printf("Error loading tables: %v\n", err)
-		return
+		log.Fatalf("Error initializing database: %v", err)
 	}
-	defer database.Db.Close()
+	defer db.Close()
 
+	// Set up routes
 	http.HandleFunc("/", handlers.HomeHandle)
 	http.HandleFunc("/register", handlers.Register)
 	http.HandleFunc("/registerInfo", handlers.RegisterInfo)
@@ -31,6 +31,7 @@ func main() {
 	http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/postinfo", handlers.PostInfo)
 
+	// Start the server
 	fmt.Println("Server started at http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

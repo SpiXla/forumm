@@ -3,7 +3,6 @@ package database
 import "fmt"
 
 func Insertuser(username string, email string, password string) error {
-
 	insertUserSQL := `INSERT INTO users (username, email, password) VALUES (?, ?, ?);`
 	statement, err := Db.Prepare(insertUserSQL)
 	if err != nil {
@@ -20,7 +19,6 @@ func Insertuser(username string, email string, password string) error {
 }
 
 func InsertPost(category string, post string, username string) error {
-
 	insertUserSQL := `INSERT INTO posts (username, post, category) VALUES (?, ?, ?);`
 	statement, err := Db.Prepare(insertUserSQL)
 	if err != nil {

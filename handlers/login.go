@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"fmt"
-	"forum/database"
 	"net/http"
+
+	"forum/database"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -33,11 +34,10 @@ func LoginInfo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "wrong password", http.StatusBadRequest)
 		return
 	}
-	user = database.CheckUname(email)
+	currentUser = database.CheckUname(email)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("wrong password or email:%v ", err), http.StatusBadRequest)
 	}
-
 
 	http.Redirect(w, r, "/logged", http.StatusMovedPermanently)
 }
