@@ -7,6 +7,7 @@ import (
 )
 
 type MyPostsData struct {
+	IsPost   bool
 	PostData []database.PostData
 }
 
@@ -22,17 +23,16 @@ func MyPosts(w http.ResponseWriter, r *http.Request) {
 			FilteredPosts = append(FilteredPosts, post)
 		}
 	}
-	if len(FilteredPosts) == 0 {
-		http.Error(w, "No posts found", http.StatusNotFound)
-		return
-	}
+	
 	data := MyPostsData{
+		IsPost:   len(FilteredPosts) > 0,
 		PostData: FilteredPosts,
 	}
+
 	err = MyPostTp.Execute(w, data)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 }

@@ -8,6 +8,7 @@ import (
 )
 
 type CatData struct {
+	IsPost   bool
 	User     string
 	PostData []database.PostData
 }
@@ -38,11 +39,8 @@ func Category(w http.ResponseWriter, r *http.Request) {
 			FilteredPosts = append(FilteredPosts, post)
 		}
 	}
-	if len(FilteredPosts) == 0 {
-		http.Error(w, "No posts in this category", http.StatusNotFound)
-		return
-	}
 	data := CatData{
+		IsPost:   len(FilteredPosts) > 0,
 		User:     currentUser,
 		PostData: FilteredPosts,
 	}

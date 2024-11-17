@@ -56,6 +56,32 @@
             color: #007bff;
         }
 
+        /* Welcome Message Styling */
+        .welcome-message {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* No Posts Found Message - Highlighting */
+        .no-posts-found .welcome-message {
+            background-color: #f39c12; /* Change the background to a different color */
+            color: #fff; /* Make text stand out more */
+        }
+
+        .welcome-message h1 {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
         /* Layout */
         .main-content {
             display: flex;
@@ -155,6 +181,24 @@
             color: #007bff;
         }
 
+        /* No Posts Found Styling */
+        .no-posts-message {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-posts-message p {
+            margin: 0;
+            font-size: 1em;
+        }
+
         /* Footer Styling */
         footer {
             background-color: #f8f9fa;
@@ -174,7 +218,7 @@
     </style>
 </head>
 
-<body>
+<body class="{{if not .IsPost}}no-posts-found{{end}}">
     <header>
         <a href="/logged" style="text-decoration: none; color: white;">
             <h1>Forum</h1>
@@ -185,6 +229,10 @@
         </div>
     </header>
     <div class="main-content">
+        {{if .IsPost}}
+        <div class="welcome-message">
+            <h1>My Posts</h1>
+        </div>
         <!-- Posts Container -->
         <div class="posts-container">
             {{range .PostData}}
@@ -194,6 +242,11 @@
                 <p class="category">Category: {{.Category}}</p>
                 <p><i>Posted on: {{.CreatedAt}}</i></p>
                 <hr>
+            </div>
+            {{end}}
+            {{else}}
+            <div class="no-posts-message">
+                <p>No posts found. Please share your thoughts with the community!</p>
             </div>
             {{end}}
         </div>
