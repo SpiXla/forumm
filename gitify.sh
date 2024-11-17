@@ -4,7 +4,7 @@ desired_branch="main"
 username="SpiXla"
 email="aymanaitbihi9@gmail.com"
 github_repo="https://github.com/SpiXla/forumm"
-gitea_repo="https://learn.zone01oujda.ma/git/aaitbihi/forum"
+gitea_repo="https://gitea.com/SpiXla/forum.git"
 
 set -e
 
