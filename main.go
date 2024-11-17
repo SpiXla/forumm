@@ -30,6 +30,9 @@ func main() {
 	http.HandleFunc("/logged", handlers.Logged)
 	http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/postinfo", handlers.PostInfo)
+	http.HandleFunc("/category/", handlers.Category)
+	http.HandleFunc("/my-posts", handlers.MyPosts)
+
 
 	// Start the server
 	fmt.Println("Server started at http://localhost:8080")

@@ -10,6 +10,9 @@ var (
 	RegTp    *template.Template
 	PostTp   *template.Template
 	LoggedTp *template.Template
+	CatTp *template.Template
+	LogCatTp *template.Template
+	MyPostTp *template.Template
 )
 
 func ParseFiles() error {
@@ -34,6 +37,18 @@ func ParseFiles() error {
 		return err
 	}
 	PostTp, err = template.ParseFiles("html/post.html")
+	if err != nil {
+		return err
+	}
+	CatTp, err = template.ParseFiles("html/category.html")
+	if err != nil {
+		return err
+	}
+	LogCatTp, err = template.ParseFiles("html/category-log.html")
+	if err != nil {
+		return err
+	}
+	MyPostTp, err = template.ParseFiles("html/mypost.html")
 	if err != nil {
 		return err
 	}

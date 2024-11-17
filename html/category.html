@@ -171,10 +171,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
- 
-
-
     </style>
 </head>
 
@@ -202,11 +198,9 @@
                 <li><a href="/category/health">Health</a></li>
             </ul>
         </div>
-        
-        
         <!-- Posts Container -->
         <div class="posts-container">
-            {{range .}}
+            {{range .PostData}}
             <div class="post">
                 <h3>Posted by {{.Username}}</h3>
                 <p>{{.Text}}</p>

@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3" // Import the SQLite driver
 )
@@ -12,12 +13,15 @@ var Db *sql.DB
 
 // PostData represents the structure of a post in the database
 type PostData struct {
-    ID        int
-    Username  string
-    Text      string
-    Category  string
-    CreatedAt string // Store the created_at timestamp as a string
+	ID        int
+	Username  string
+	Text      string
+	Category  string
+	CreatedAt string // Store the created_at timestamp as a string
 }
+
+var PData []PostData
+
 // CreateTable creates the necessary tables and initializes the database
 func CreateTable() (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", "./database/Database.db")
@@ -61,24 +65,32 @@ func CreateTable() (*sql.DB, error) {
 
 // GetAllPosts retrieves all posts from the database
 func GetAllPosts() ([]PostData, error) {
-    rows, err := Db.Query("SELECT username, post, category, created_at FROM posts")
-    if err != nil {
-        return nil, fmt.Errorf("failed to query posts table: %w", err)
-    }
-    defer rows.Close()
+	rows, err := Db.Query("SELECT username, post, category, created_at FROM posts")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query posts table: %w", err)
+	}
+	defer rows.Close()
 
-    var posts []PostData
-    for rows.Next() {
-        var post PostData
-        if err := rows.Scan(&post.Username, &post.Text, &post.Category, &post.CreatedAt); err != nil {
-            return nil, fmt.Errorf("failed to scan row: %w", err)
-        }
-        posts = append(posts, post)
-    }
+	var posts []PostData
+	for rows.Next() {
+		var post PostData
+		if err := rows.Scan(&post.Username, &post.Text, &post.Category, &post.CreatedAt); err != nil {
+			return nil, fmt.Errorf("failed to scan row: %w", err)
+		}
+		posts = append(posts, post)
+	}
 
-    if err := rows.Err(); err != nil {
-        return nil, fmt.Errorf("error during row iteration: %w", err)
-    }
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("error during row iteration: %w", err)
+	}
+	for i, post := range posts {
+		parsedTime, err := time.Parse("2006-01-02T15:04:05Z", post.CreatedAt)
+		if err != nil {
+			fmt.Println("Error parsing date:", err)
+			continue
+		}
+		posts[i].CreatedAt = parsedTime.Format("January 02, 2006 at 3:04 PM")
+	}
 
-    return posts, nil
+	return posts, nil
 }

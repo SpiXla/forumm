@@ -171,42 +171,23 @@
         footer a:hover {
             text-decoration: underline;
         }
-
- 
-
-
     </style>
 </head>
 
 <body>
     <header>
-        <a href="/" style="text-decoration: none; color: white;">
+        <a href="/logged" style="text-decoration: none; color: white;">
             <h1>Forum</h1>
         </a>
         <div class="header-buttons">
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+            <a href="/post">Post</a>
+            <a href="/">Logout</a>
         </div>
     </header>
     <div class="main-content">
-        <!-- Sidebar with Categories -->
-        <div class="side-bar">
-            <h2>Categories</h2>
-            <ul>
-                <li><a href="/category/general">General</a></li>
-                <li><a href="/category/games">Games</a></li>
-                <li><a href="/category/sports">Sports</a></li>
-                <li><a href="/category/fashion">Fashion</a></li>
-                <li><a href="/category/travel">Travel</a></li>
-                <li><a href="/category/food">Food</a></li>
-                <li><a href="/category/health">Health</a></li>
-            </ul>
-        </div>
-        
-        
         <!-- Posts Container -->
         <div class="posts-container">
-            {{range .}}
+            {{range .PostData}}
             <div class="post">
                 <h3>Posted by {{.Username}}</h3>
                 <p>{{.Text}}</p>
