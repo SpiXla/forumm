@@ -11,13 +11,15 @@ var (
 )
 func Login(w http.ResponseWriter, r *http.Request) {
 
-	err := LogTp.Execute(w, nil)
+	err := LogTp.Execute(w, NotValidPsswdandEmail)
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
 	}
 }
 
 func LoginInfo(w http.ResponseWriter, r *http.Request) {
+	NotValidPsswdandEmail = false
 	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
@@ -28,19 +30,17 @@ func LoginInfo(w http.ResponseWriter, r *http.Request) {
 		NotValidPsswdandEmail = true		
 	}
 
-	realpswd, err := database.CheckPswd(email)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("wrong password or email:%v ", err), http.StatusBadRequest)
-	}
+	realpswd, _ := database.CheckPswd(email)
 	if password != realpswd {
 		NotValidPsswdandEmail = true		
-
+	}
+	if NotValidPsswdandEmail {
+		http.Redirect(w, r, "/login", http.StatusMovedPermanently)
+		return
 	}
 
 	currentUser = database.CheckUname(email)
-	if err != nil {
-		http.Error(w, fmt.Sprintf("wrong password or email:%v ", err), http.StatusBadRequest)
-	}
+
 
 	http.Redirect(w, r, "/logged", http.StatusMovedPermanently)
 }
