@@ -8,7 +8,7 @@ gitea_repo="https://gitea.com/SpiXla/forum.git"
 
 set -e
 
-# Prints its first argument..
+# Prints its first argument...
 # Adds a 1 second cooldown...
 log() {
     echo -e "$1"
