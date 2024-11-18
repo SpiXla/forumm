@@ -3,11 +3,12 @@
 desired_branch="main"
 username="SpiXla"
 email="aymanaitbihi9@gmail.com"
-github_repo="https://github.com/SpiXla/forumm"
+github_repo="https://github.com/SpiXla/forumm.git"
 gitea_repo="https://gitea.com/SpiXla/forum.git"
 
 set -e
 
+# Prints its first argument...
 # Prints its first argument...
 # Adds a 1 second cooldown...
 log() {
