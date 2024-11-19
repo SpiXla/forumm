@@ -1,5 +1,5 @@
 package database
-//
+////////
 func IsEmailExist(email string) bool {
 	query := `SELECT COUNT(*) FROM users WHERE email = ?`
 	var count int

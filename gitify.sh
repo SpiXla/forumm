@@ -1,5 +1,6 @@
 #!/bin/bash
-#/////
+#/////////////
+
 desired_branch="main"
 username="SpiXla"
 email="aymanaitbihi9@gmail.com"
