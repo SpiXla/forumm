@@ -39,6 +39,9 @@ func Category(w http.ResponseWriter, r *http.Request) {
 			FilteredPosts = append(FilteredPosts, post)
 		}
 	}
+	if category == "all" {
+		FilteredPosts = posts
+	}
 	data := CatData{
 		IsPost:   len(FilteredPosts) > 0,
 		User:     currentUser,
