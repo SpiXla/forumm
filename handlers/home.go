@@ -8,7 +8,7 @@ import (
 )
 
 func HomeHandle(w http.ResponseWriter, r *http.Request) {
-
+//
 	posts, err := database.GetAllPosts()
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error fetching posts: %v", err), http.StatusInternalServerError)
