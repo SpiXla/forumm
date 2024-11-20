@@ -22,6 +22,9 @@ func main() {
 	}
 	defer db.Close()
 
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	// Set up routes
 	http.HandleFunc("/", handlers.HomeHandle)
 	http.HandleFunc("/register", handlers.Register)
@@ -33,6 +36,7 @@ func main() {
 	http.HandleFunc("/postinfo", handlers.PostInfo)
 	http.HandleFunc("/category/", handlers.Category)
 	http.HandleFunc("/my-posts", handlers.MyPosts)
+	http.HandleFunc("/profile", handlers.Profile)
 
 
 	// Start the server

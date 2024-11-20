@@ -7,6 +7,7 @@ import (
 	"forum/database"
 )
 var (
+	email string
 	NotValidPsswdandEmail bool
 )
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +24,7 @@ func LoginInfo(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
-	email := r.FormValue("email")
+	email = r.FormValue("email")
 	password := r.FormValue("password")
 
 	if !database.IsEmailExist(email) {

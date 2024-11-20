@@ -4,41 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum - Home</title>
-    <link rel="stylesheet" href="/static/mypost.css">
+    <title>Forum - Profile</title>
+    <link rel="stylesheet" href="/static/profile.css">
 </head>
 
-<body class="{{if not .IsPost}}no-posts-found{{end}}">
+<body>
     <header>
         <a href="/logged" style="text-decoration: none; color: white;">
             <h1>Forum</h1>
         </a>
         <div class="header-buttons">
-            <a href="/post">Post</a>
-            <a href="/">Logout</a>
+            <a href="/logged">Home</a>
+            <a href="/logout">Logout</a>
         </div>
     </header>
     <div class="main-content">
-        {{if .IsPost}}
         <div class="welcome-message">
-            <h1>My Posts</h1>
+            <h1>{{.Username}}'s Profile</h1>
         </div>
-        <!-- Posts Container -->
+        <!-- Sidebar with Profile Options -->
+        <div class="side-bar">
+            <h2>Profile Options</h2>
+            <ul>
+                <li><a href="/profile/settings">Account Settings</a></li>
+                <li><a href="/my-posts">My Posts</a></li>
+                <li><a href="/profile/liked">Liked Posts</a></li>
+            </ul>
+        </div>
+        <!-- Profile Details Section -->
         <div class="posts-container">
-            {{range .PostData}}
             <div class="post">
-                <h3>Posted by {{.Username}}</h3>
-                <p>{{.Text}}</p>
-                <p class="category">Category: {{.Category}}</p>
-                <p><i>Posted on: {{.CreatedAt}}</i></p>
+                <h3>Username: {{.Username}}</h3>
+                <p>Email: {{.Email}}</p>
                 <hr>
             </div>
-            {{end}}
-            {{else}}
-            <div class="no-posts-message">
-                <p>No posts found. Please share your thoughts with the community!</p>
-            </div>
-            {{end}}
         </div>
     </div>
     <footer>
